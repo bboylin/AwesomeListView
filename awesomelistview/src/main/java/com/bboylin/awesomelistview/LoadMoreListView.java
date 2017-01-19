@@ -2,7 +2,7 @@ package com.bboylin.awesomelistview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
+import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
@@ -34,7 +34,6 @@ public class LoadMoreListView extends ListView {
         // Clear flag
         mIsPullUpLoading = false;
         hideFooterView();
-        //if no more data , unable to load more
         ableToLoadMore = hasMoreItems;
     }
 
@@ -43,7 +42,7 @@ public class LoadMoreListView extends ListView {
     private boolean mIsPullUpLoading;
     // The controller should register this listener.
     private OnPullUpLoadListener mOnPullUpLoadListener;
-    // The flag shows whether we can load more or not
+    // The flag used to stop loading when no data
     private boolean ableToLoadMore;
 
     private void init() {
@@ -60,6 +59,7 @@ public class LoadMoreListView extends ListView {
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            Log.d("xyz", "xyzonscroll");
             // Start a new loading when the last item scrolls into screen, instead of overriding method onTouchEvent.
             if (ableToLoadMore && needLoad(firstVisibleItem, visibleItemCount, totalItemCount)) {
                 startPullUpLoad();
@@ -93,7 +93,6 @@ public class LoadMoreListView extends ListView {
             addFooterView(mFooterView);
         }
         mFooterView.setPadding(0, 0, 0, 0);
-        mFooterView.setVisibility(View.VISIBLE);
     }
 
     // It's better to hide footer instead of removing.
@@ -101,12 +100,12 @@ public class LoadMoreListView extends ListView {
     // this will call findViewById many times which waste time.
     private void hideFooterView() {
         if (mFooterView != null) {
-            mFooterView.setVisibility(View.INVISIBLE);
-            mIsPullUpLoading = false;
-            /*if (getFooterViewsCount()>0){
-                removeFooterView(mFooterView);
-            }*/
             mFooterView.setPadding(0, 0, 0, -mFooterView.getHeight());
+            mIsPullUpLoading = false;
         }
+    }
+
+    public void setAbleToLoadMore(boolean ableToLoadMore) {
+        this.ableToLoadMore = ableToLoadMore;
     }
 }

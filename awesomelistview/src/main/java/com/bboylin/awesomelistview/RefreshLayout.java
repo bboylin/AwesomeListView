@@ -213,6 +213,7 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
         currentStatus = STATUS_REFRESH_FINISHED;
         headerImage.setAnimation(null);
         new HideHeaderTask().execute();
+        ((LoadMoreListView) listView).setAbleToLoadMore(true);
     }
 
     /**

@@ -25,7 +25,7 @@
             android:layout_marginLeft="15dp"
             android:gravity="center"
             android:text="@string/pull_to_refresh"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/refreshTextColor"
             android:textSize="12sp" />
     </LinearLayout>
 </RelativeLayout>

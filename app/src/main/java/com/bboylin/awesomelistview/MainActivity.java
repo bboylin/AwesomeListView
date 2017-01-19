@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     listView.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, refreshItems));
                     refreshableLayout.finishRefreshing();
                 } else if (msg.what == 0x124) {
-                    if (i < 50) {
+                    if (i < 5) {
                         i++;
                         listView.onPullUpLoadFinished(true);
                     } else {
