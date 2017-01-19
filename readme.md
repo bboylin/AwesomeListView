@@ -77,3 +77,6 @@ listView.setOnPullUpLoadListener(new LoadMoreListView.OnPullUpLoadListener() {
 //after loading data
 listView.onPullUpLoadFinished(boolean hasMoreItems);
 ```
+
+## note:
+when loading more in android 4.4 or below,some bugs may occur.
