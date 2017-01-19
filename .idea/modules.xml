@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AwesomeListView.iml" filepath="$PROJECT_DIR$/AwesomeListView.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/artifact.iml" filepath="$PROJECT_DIR$/artifact.iml" />
       <module fileurl="file://$PROJECT_DIR$/awesomelistview/awesomelistview.iml" filepath="$PROJECT_DIR$/awesomelistview/awesomelistview.iml" />
     </modules>
   </component>

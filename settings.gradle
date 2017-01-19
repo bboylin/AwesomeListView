@@ -1,1 +1,2 @@
 include ':app', ':awesomelistview'
+rootProject.name = 'artifact'
