@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     RefreshLayout refreshableLayout;
@@ -39,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
                 if (msg.what == 0x123) {
                     listView.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, refreshItems));
                     refreshableLayout.finishRefreshing();
+                    Toast.makeText(MainActivity.this,"刷新完成",Toast.LENGTH_SHORT).show();
                 } else if (msg.what == 0x124) {
-                    if (i < 5) {
+                    if (i < 2) {
                         i++;
                         listView.onPullUpLoadFinished(true);
                     } else {
                         listView.onPullUpLoadFinished(false);
+                        Toast.makeText(MainActivity.this,"数据加载全部完毕",Toast.LENGTH_SHORT).show();
                     }
                 }
             }
