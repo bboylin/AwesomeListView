@@ -55,12 +55,7 @@ public class MainActivity extends AppCompatActivity {
         refreshableLayout.setOnRefreshListener(new RefreshLayout.PullToRefreshListener() {
             @Override
             public void onRefresh() {
-                try {
-                    Thread.sleep(2000);
-                    mHandler.sendEmptyMessage(0x123);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                mHandler.sendEmptyMessageDelayed(0x123,2000);
             }
         });
     }

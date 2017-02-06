@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```java
 dependencies {
-	        compile 'com.github.bboylin:AwesomeListView:v0.1'
+	        compile 'com.github.bboylin:AwesomeListView:v0.1.1'
 	}
 ```
 
@@ -55,35 +55,27 @@ to refresh:
 refreshableLayout.setOnRefreshListener(new RefreshLayout.PullToRefreshListener() {
             @Override
             public void onRefresh() {
-                try {
-                	//do some refreshing work
-                    Thread.sleep(2000);
-                    //tell the main thread that refreshing is done
-                    mHandler.sendEmptyMessage(0x123);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                //模拟刷新操作
+                mHandler.sendEmptyMessageDelayed(0x123,2000);
             }
         });
-//to stop refreshing
-refreshableLayout.finishRefreshing();
 ```
+
+to stop refreshing:`refreshableLayout.finishRefreshing();`
 
 to load more :
 ```java
 listView.setOnPullUpLoadListener(new LoadMoreListView.OnPullUpLoadListener() {
             @Override
             public void onPullUpLoading() {
-            	//do some loading work
+            	//模拟加载更多操作
             	mHandler.sendEmptyMessageDelayed(0x124, 2000);
             }
         });
-//after loading data
-listView.onPullUpLoadFinished(boolean hasMoreItems);
 ```
 
-## note:
-when loading more in android 4.4 or below,some bugs may occur.
+after loading data，this method should be manually called to stop loading:
+`listView.onPullUpLoadFinished(boolean hasMoreItems);`
 
 #License
 

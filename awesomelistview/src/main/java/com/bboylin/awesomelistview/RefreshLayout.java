@@ -175,6 +175,9 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
                     if (currentStatus == STATUS_RELEASE_TO_REFRESH) {
                         // 松手时如果是释放立即刷新状态，就去调用正在刷新的任务
                         new RefreshingTask().execute();
+                        if (mListener != null) {
+                            mListener.onRefresh();
+                        }
                     } else if (currentStatus == STATUS_PULL_TO_REFRESH) {
                         // 松手时如果是下拉状态，就去调用隐藏下拉头的任务
                         new HideHeaderTask().execute();
@@ -290,9 +293,9 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
             }
             currentStatus = STATUS_REFRESHING;
             publishProgress(0);
-            if (mListener != null) {
+            /*if (mListener != null) {
                 mListener.onRefresh();
-            }
+            }*/
             return null;
         }
 
