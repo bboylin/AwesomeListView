@@ -53,7 +53,7 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
     /**
      * 需要去下拉刷新的ListView
      */
-    private ListView listView;
+    private LoadMoreListView mLoadMoreListView;
 
     /**
      * header中指示下拉和释放的箭头以及加载圆圈
@@ -132,8 +132,8 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
             hideHeaderHeight = -header.getHeight();
             headerLayoutParams = (MarginLayoutParams) header.getLayoutParams();
             headerLayoutParams.topMargin = hideHeaderHeight;
-            listView = (ListView) getChildAt(1);
-            listView.setOnTouchListener(this);
+            mLoadMoreListView = (LoadMoreListView) getChildAt(1);
+            mLoadMoreListView.setOnTouchListener(this);
             loadOnce = true;
         }
     }
@@ -189,9 +189,9 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
                     || currentStatus == STATUS_RELEASE_TO_REFRESH) {
                 updateHeaderView();
                 // 当前正处于下拉或释放状态，要让ListView失去焦点，否则被点击的那一项会一直处于选中状态
-                listView.setPressed(false);
-                listView.setFocusable(false);
-                listView.setFocusableInTouchMode(false);
+                mLoadMoreListView.setPressed(false);
+                mLoadMoreListView.setFocusable(false);
+                mLoadMoreListView.setFocusableInTouchMode(false);
                 lastStatus = currentStatus;
                 // 当前正处于下拉或释放状态，通过返回true屏蔽掉ListView的滚动事件
                 return true;
@@ -216,7 +216,7 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
         currentStatus = STATUS_REFRESH_FINISHED;
         headerImage.setAnimation(null);
         new HideHeaderTask().execute();
-        ((LoadMoreListView) listView).setAbleToLoadMore(true);
+        mLoadMoreListView.setAbleToLoadMore(true);
     }
 
     /**
@@ -226,9 +226,9 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
      * @param event
      */
     private void setIsAbleToPull(MotionEvent event) {
-        View firstChild = listView.getChildAt(0);
+        View firstChild = mLoadMoreListView.getChildAt(0);
         if (firstChild != null) {
-            int firstVisiblePos = listView.getFirstVisiblePosition();
+            int firstVisiblePos = mLoadMoreListView.getFirstVisiblePosition();
             if (firstVisiblePos == 0 && firstChild.getTop() == 0) {
                 if (!ableToRefresh) {
                     yDown = event.getRawY();
