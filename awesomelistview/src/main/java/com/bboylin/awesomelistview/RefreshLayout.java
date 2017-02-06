@@ -216,13 +216,15 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
         currentStatus = STATUS_REFRESH_FINISHED;
         headerImage.setAnimation(null);
         if (headerLayoutParams == null) {
+            hideHeaderHeight = -header.getHeight();
             headerLayoutParams = (MarginLayoutParams) header.getLayoutParams();
+            headerLayoutParams.topMargin = hideHeaderHeight;
         }
         new HideHeaderTask().execute();
         if (mLoadMoreListView == null) {
             mLoadMoreListView = (LoadMoreListView) getChildAt(1);
         }
-        mLoadMoreListView.setAbleToLoadMore(true);
+        mLoadMoreListView.onPullUpLoadFinished(true);
     }
 
     /**
