@@ -10,7 +10,6 @@ import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class RefreshLayout extends LinearLayout implements OnTouchListener {
@@ -138,6 +137,11 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
         }
     }
 
+    //某些情况下初始时下拉刷新头未隐藏所以要手动调此方法。
+    public void hideHeaderView(){
+        new HideHeaderTask().execute();
+    }
+
     /**
      * 当ListView被触摸时调用，其中处理了各种下拉刷新的具体逻辑。
      */
@@ -154,6 +158,7 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
                     int distance = (int) (yMove - yDown);
                     // 如果手指是下滑状态，并且下拉头是完全隐藏的，就屏蔽下拉事件
                     if (distance <= 0 && headerLayoutParams.topMargin <= hideHeaderHeight) {
+
                         return false;
                     }
                     if (distance < touchSlop) {
@@ -219,6 +224,7 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
             hideHeaderHeight = -header.getHeight();
             headerLayoutParams = (MarginLayoutParams) header.getLayoutParams();
             headerLayoutParams.topMargin = hideHeaderHeight;
+            header.setLayoutParams(headerLayoutParams);
         }
         new HideHeaderTask().execute();
         if (mLoadMoreListView == null) {
@@ -264,9 +270,11 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
             if (currentStatus == STATUS_PULL_TO_REFRESH) {
                 description.setText(getResources().getString(R.string.pull_to_refresh));
                 headerImage.setImageResource(R.drawable.my_arrow_down);
+                headerImage.setAnimation(null);
             } else if (currentStatus == STATUS_RELEASE_TO_REFRESH) {
                 description.setText(getResources().getString(R.string.release_to_refresh));
                 headerImage.setImageResource(R.drawable.my_arrow_up);
+                headerImage.setAnimation(null);
             } else if (currentStatus == STATUS_REFRESHING) {
                 description.setText(getResources().getString(R.string.refreshing));
                 headerImage.setImageResource(R.drawable.loading);
@@ -283,7 +291,7 @@ public class RefreshLayout extends LinearLayout implements OnTouchListener {
     }
 
     /**
-     * 正在刷新的任务，在此任务中会去回调注册进来的下拉刷新监听器。
+     * 正在刷新的任务，在此任务中会去回调注册进来的下拉刷新监听器。（已改成不回调）
      */
     class RefreshingTask extends AsyncTask<Void, Integer, Void> {
 

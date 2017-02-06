@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```java
 dependencies {
-	        compile 'com.github.bboylin:AwesomeListView:v0.1.1'
+	        compile 'com.github.bboylin:AwesomeListView:v0.1.8'
 	}
 ```
 
@@ -76,6 +76,9 @@ listView.setOnPullUpLoadListener(new LoadMoreListView.OnPullUpLoadListener() {
 
 after loading data，this method should be manually called to stop loading:
 `listView.onPullUpLoadFinished(boolean hasMoreItems);`
+
+to manually hide the header if you met some bug,call this method:
+`refreshableLayout.hideHeaderView()`,usually you don't have to call it manually
 
 #License
 

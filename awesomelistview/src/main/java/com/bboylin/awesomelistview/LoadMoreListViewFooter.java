@@ -18,21 +18,28 @@ public class LoadMoreListViewFooter extends LinearLayout {
         init();
     }
 
-    private RelativeLayout mLoadingLinearLayout;
+    private RelativeLayout mLoadingLayout;
     private TextView mLoadingLabel;
-    private ImageView mLoadmoreImage;
+    private ImageView mLoadingImage;
 
     private void init() {
         inflate(getContext(), R.layout.load_more_footer, this);
-        mLoadingLinearLayout = (RelativeLayout) findViewById(R.id.load_more_layout);
+        mLoadingLayout = (RelativeLayout) findViewById(R.id.load_more_layout);
         mLoadingLabel = (TextView) findViewById(R.id.description);
-        mLoadmoreImage = (ImageView) findViewById(R.id.imageview_loading);
+        mLoadingImage = (ImageView) findViewById(R.id.imageview_loading);
+    }
+
+    public void setFooterVisibility(int visibility){
+        this.setVisibility(visibility);
+        mLoadingImage.setVisibility(visibility);
+        mLoadingLabel.setVisibility(visibility);
+        mLoadingLayout.setVisibility(visibility);
     }
 
     /**
      * 根据当前的状态来旋转进度圈。
      */
     public void startAnimation() {
-        ImageUtils.startAnimation(mLoadmoreImage);
+        ImageUtils.startAnimation(mLoadingImage);
     }
 }

@@ -93,8 +93,7 @@ public class LoadMoreListView extends ListView {
         if (getFooterViewsCount() == 0) {
             addFooterView(mFooterView);
         }
-        mFooterView.setPadding(0,0,0,0);
-        mFooterView.setVisibility(View.VISIBLE);
+        mFooterView.setFooterVisibility(View.VISIBLE);
     }
 
     // It's better to hide footer instead of removing.
@@ -102,8 +101,7 @@ public class LoadMoreListView extends ListView {
     // this will call findViewById many times which waste time.
     private void hideFooterView() {
         if (mFooterView != null) {
-            mFooterView.setPadding(0,0,0,-mFooterView.getHeight());
-            mFooterView.setVisibility(View.GONE);
+            mFooterView.setFooterVisibility(View.GONE);
             mIsPullUpLoading = false;
         }
     }
